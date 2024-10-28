@@ -1,0 +1,14 @@
+{
+  "yaml.schemaStore.enable": false,
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  "dart.runPubGetOnPubspecChanges": "never",
+  "cSpell.words": [
+    "hackathon"
+  ],
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "search.exclude": {
+    "**/.fvm": true,
+  }
+}

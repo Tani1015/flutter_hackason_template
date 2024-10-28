@@ -1,0 +1,60 @@
+name: hackathon_template
+
+sdkPath: .fvm/flutter_sdk
+
+packages:
+  - apps/**
+  - packages/**
+
+command:
+  version:
+    brach: main
+
+  bootstrap:
+    dev_dependencies:
+      build_runner: ^2.4.13
+      flutter_gen_runner: ^5.8.0
+      pedantic_mono: ^1.29.0
+    environment:
+      sdk: ">=3.5.0 <4.0.0"
+      flutter: ">=3.24.0"
+    hooks:
+      post: melos run _bootstrap
+  
+  clean:
+    hooks:
+      post: melos run clean:post
+
+scripts:
+  analyze:
+    exec: flutter analyze
+
+  gen:
+    exec:
+      concurrency: 1
+    packageFilters:
+      dependsOn: "build_runner"
+      dirExists: "lib"
+      flutter: true
+    run: flutter pub run build_runner build --delete-conflicting-outputs
+
+  gen:watch:
+    exec:
+      concurrency: 10
+    packageFilters:
+      dirExists: lib
+      dependsOn: "build_runner"
+    run: flutter pub run build_runner watch --delete-conflicting-outputs
+
+  clean:
+     run: melos exec -c 1  -- "flutter clean"
+  
+  _bootstrap:
+    steps:
+      - melos run _bootstrap:flutter
+
+  _bootstrap:flutter:
+    steps:
+      - melos exec --concurrency 1 --flutter -- "flutter pub get"
+      - melos exec --concurrency 1 --flutter -- "flutter pub global activate flutter_gen"
+      - melos exec --concurrency 1 --flutter -- "flutter pub run build_runner build --delete-conflicting-outputs"

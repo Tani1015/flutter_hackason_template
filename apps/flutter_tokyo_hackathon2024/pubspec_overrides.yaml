@@ -1,4 +1,4 @@
 # melos_managed_dependency_overrides: helper
 dependency_overrides:
   helper:
-    path: ../../packages/helper
+    path: ..\\..\\packages\\helper

@@ -30,6 +30,3 @@ build/
 
 # FVM Version Cache
 .fvm/
-
-# 環境によってパスの指定が違うため無効
-**\pubspec_overrides.yaml

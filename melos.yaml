@@ -1,6 +1,5 @@
 name: hackathon_template
-
-sdkPath: .fvm/flutter_sdk
+sdkPath: .fvm/versions/3.24.4
 
 packages:
   - apps/**

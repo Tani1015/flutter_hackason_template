@@ -2,6 +2,13 @@
 
 ## init
 
+fvm の sdk パスが指定できない場合
+fvm のコマンドから melos コマンドを行う
+```
+melos bs → fvm flutter pub run melos bs
+melos gen → fvm flutter oub run melos gen
+```
+
 ### melos コマンドのアクティブ
 ```
 (fvm) dart pub global activate melos

@@ -1,0 +1,56 @@
+{
+    "Snippet: Provider": {
+      "scope": "dart",
+      "prefix": ["provider"],
+      "description": "Create a Provider",
+      "body": [
+        "import 'package:flutter_riverpod/flutter_riverpod.dart';",
+        "import 'package:riverpod_annotation/riverpod_annotation.dart';",
+        "",
+        "part '$TM_FILENAME_BASE.g.dart';",
+        "",
+        "@riverpod",
+        "${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} ${TM_FILENAME_BASE/(.*)/${1:/camelcase}/}(${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Ref ref, ${1:int familyArg}) {",
+        "  return  ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(ref);",
+        "}",
+        "",
+        "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+        "  const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(this._ref);",
+        "  final Ref _ref;",
+        "",
+        "  $0",
+        "}",
+        "",
+      ]
+    },
+    "Snippet: RepositoryProvider": {
+      "scope": "dart",
+      "prefix": ["repository"],
+      "description": "Create a RepositoryProvider",
+      "body": [
+        "",
+        "import 'package:cloud_firestore/cloud_firestore.dart';",
+        "import 'package:flutter_riverpod/flutter_riverpod.dart';",
+        "import 'package:riverpod_annotation/riverpod_annotation.dart';",
+        "import 'package:kanril_app/infrastructure/firebase_firestore/firebase_firestore.dart';",
+        "",
+        "part '$TM_FILENAME_BASE.g.dart';",
+        "",
+        "@riverpod",
+        "${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} ${TM_FILENAME_BASE/(.*)/${1:/camelcase}/}(",
+        "  ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Ref ref,",
+        ") {",
+        "  return ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(ref);",
+        "}",
+        "",
+        "class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+        "  const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(this._ref);",
+        "  final Ref _ref;",
+        "",
+        "  FirebaseFirestore get _firestore => _ref.read(firebaseFirestoreInfraProvider);",
+        "",
+        "}",
+      ]
+    }
+  }
+    

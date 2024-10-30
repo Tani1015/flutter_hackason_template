@@ -33,6 +33,8 @@ dependencies:
 
   helper:
     path: ../../packages/helper
+  
+  envied: ^0.5.4+1
 
 dev_dependencies:
   flutter_test:

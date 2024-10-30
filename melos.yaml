@@ -28,6 +28,9 @@ scripts:
   analyze:
     exec: flutter analyze
 
+  get:
+    run: melos exec -- "flutter pub get"
+
   gen:
     exec:
       concurrency: 1
@@ -44,6 +47,30 @@ scripts:
       dirExists: lib
       dependsOn: "build_runner"
     run: flutter pub run build_runner watch --delete-conflicting-outputs
+  
+  build:apb:
+    exec:
+      concurrency: 1
+    packageFilters:
+      dirExists: "lib"
+      flutter: true
+    run: flutter build appbundle --debug --target lib/main.dart
+
+  build:apk:
+    exec:
+      concurrency: 1
+    packageFilters:
+      dirExists: "lib"
+      flutter: true
+    run: flutter build apk --debug --target lib/main.dart
+  
+  build:ipa:
+    exec:
+      concurrency: 1
+    packageFilters:
+      dirExists: "lib"
+      flutter: true
+    run: flutter build ipa --debug --target lib/main.dart
 
   clean:
      run: melos exec -c 1  -- "flutter clean"

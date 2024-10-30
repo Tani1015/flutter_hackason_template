@@ -3,7 +3,12 @@
   "dart.flutterSdkPath": ".fvm/versions/3.24.4",
   "dart.runPubGetOnPubspecChanges": "never",
   "cSpell.words": [
-    "hackathon"
+    "appbundle",
+    "hackathon",
+    "noto",
+    "Schyler",
+    "supabase",
+    "unfocus"
   ],
   "files.watcherExclude": {
     "**/.fvm": true

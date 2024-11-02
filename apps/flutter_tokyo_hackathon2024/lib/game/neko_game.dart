@@ -12,6 +12,8 @@ import 'package:flutter_tokyo_hackathon2024/game/enemies/poop_enemy.dart';
 import 'package:flutter_tokyo_hackathon2024/game/player/neko.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state_notifier.dart';
 
+import 'enemies/bird_enemy.dart';
+
 class NekoGame extends FlameGame<MyWorld>
     with HasCollisionDetection, RiverpodGameMixin<MyWorld>, KeyboardEvents {
   NekoGame()
@@ -35,7 +37,7 @@ class NekoGame extends FlameGame<MyWorld>
       'two-way-arrow.png',
     ]);
 
-     enemySpawnTimer = Timer(2, repeat: true, onTick: _spawnEnemy);
+     enemySpawnTimer = Timer(4, repeat: true, onTick: _spawnEnemy);
     enemySpawnTimer.start();
 
 
@@ -43,12 +45,8 @@ class NekoGame extends FlameGame<MyWorld>
   }
 
     void _spawnEnemy() {
-    final xPosition = random.nextDouble() * size.x;
-    final enemy = PoopEnemy(
-      speed: 100,
-      position: Vector2(xPosition, -10), 
-    );
-    add(enemy);
+    final bird = BirdEnemy(speed: 100);
+      add(bird);
   }
 
   @override
@@ -81,7 +79,6 @@ class MyWorld extends World with HasGameRef<NekoGame> {
   FutureOr<void> onLoad() async {
     await add(player = Neko());
     
-
     return super.onLoad();
   }
 }

@@ -71,6 +71,23 @@ scripts:
       dirExists: "lib"
       flutter: true
     run: flutter build ipa --debug --target lib/main.dart
+  
+  build:web:
+    exec:
+      concurrency: 1
+    packageFilters:
+      dirExists: "lib"
+      flutter: true
+    run: flutter build web --target lib/main.dart
+  
+  deploy:
+    build:web:
+    exec:
+      concurrency: 1
+    packageFilters:
+      dirExists: "build/web"
+      flutter: true
+    run: firebase deploy
 
   clean:
      run: melos exec -c 1  -- "flutter clean"

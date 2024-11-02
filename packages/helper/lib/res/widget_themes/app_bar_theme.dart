@@ -11,9 +11,9 @@ TextStyle get _baseTextStyle {
 
 AppBarTheme get appBarThemeLight {
   return AppBarTheme(
-    foregroundColor: AppColors.backgroundColor,
-    surfaceTintColor: AppColors.backgroundColor,
-    titleTextStyle: _baseTextStyle,
+    titleTextStyle: _baseTextStyle.copyWith(
+      color: AppColors.textColor,
+    ),
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.light,
       statusBarColor: AppColors.textColor,
@@ -25,12 +25,15 @@ AppBarTheme get appBarThemeLight {
 
 AppBarTheme get appBarThemeDark {
   return AppBarTheme(
+    titleTextStyle: _baseTextStyle.copyWith(
+      color: AppColors.backgroundColor,
+    ),
+    backgroundColor: AppColors.onBackgroundColor,
     foregroundColor: AppColors.backgroundColor,
     surfaceTintColor: AppColors.backgroundColor,
-    titleTextStyle: _baseTextStyle,
     systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.dark,
-      statusBarColor: AppColors.backgroundColor,
+      statusBarColor: AppColors.textColor,
       systemNavigationBarColor: AppColors.textColor,
       systemNavigationBarDividerColor: AppColors.outline,
     ),

@@ -3,7 +3,7 @@ import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
 import 'package:helper/presentation/widgets/lottie.dart';
 
 class RankingPage extends StatelessWidget {
-  const RankingPage._({super.key});
+  const RankingPage._();
 
   static const _path = '/ranking';
 

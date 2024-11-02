@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class GameInstructionScreen extends StatelessWidget {
-  const GameInstructionScreen._();
+class GameInstructionPage extends StatelessWidget {
+  const GameInstructionPage._();
 
   static const _path = '/game_instruction';
 
   static Route<void> route() => MaterialPageRoute(
-        builder: (_) => const GameInstructionScreen._(),
+        builder: (_) => const GameInstructionPage._(),
         settings: const RouteSettings(
           name: _path,
         ),
@@ -19,7 +19,6 @@ class GameInstructionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ゲーム説明'),
-        backgroundColor: theme.colorScheme.surface,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -55,12 +54,9 @@ class GameInstructionScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    // TODO: ネコのAssets
                     const Text('0. ネコがほっとしながら寝ています。'),
                     const Text('1. 寝ているネコに向かって色々な障害物が飛んできます。'),
-                    // TODO: 障害物のAssets
                     const Text('2. 障害物は２種類あります。'),
-                    // TODO: サンプルPLAY画面
                     const Text('3. 障害物が有機物なら、クリック！無機物なら、スライドで壁を利用！'),
                     const Text('4. ネコを守ることができたら、スコアが加算されます。'),
                     const Text('5. 高いスコアを目指して、ランキングに入りましょう！'),

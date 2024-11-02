@@ -1,10 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/onboarding/onboarding_page.dart';
 import 'package:helper/presentation/app/navigator_handler.dart';
 import 'package:helper/presentation/app_wrapper.dart';
 import 'package:helper/res/app_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 

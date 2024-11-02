@@ -13,12 +13,15 @@ import 'package:lottie/lottie.dart' as _lottie;
 class $AssetsJsonGen {
   const $AssetsJsonGen();
 
+  /// File path: assets/json/cat.json
+  LottieGenImage get cat => const LottieGenImage('assets/json/cat.json');
+
   /// File path: assets/json/celebrate.json
   LottieGenImage get celebrate =>
       const LottieGenImage('assets/json/celebrate.json');
 
   /// List of all assets
-  List<LottieGenImage> get values => [celebrate];
+  List<LottieGenImage> get values => [cat, celebrate];
 }
 
 class Assets {

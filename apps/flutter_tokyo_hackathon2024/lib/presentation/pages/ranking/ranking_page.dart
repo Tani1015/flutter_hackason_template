@@ -20,15 +20,19 @@ class RankingPage extends StatelessWidget {
     final screenWidth = mediaQuery.size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('ランキング'),
+        centerTitle: true,
+      ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ImmediatelyLottie(
-            width: screenWidth * 0.4,
+            width: screenWidth * 0.5,
             Assets.json.celebrate.path,
           ),
           ImmediatelyLottie(
-            width: screenWidth * 0.4,
+            width: screenWidth * 0.5,
             Assets.json.celebrate.path,
           ),
         ],

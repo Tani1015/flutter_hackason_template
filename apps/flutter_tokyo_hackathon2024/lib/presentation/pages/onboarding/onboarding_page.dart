@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tokyo_hackathon2024/presentation/pages/content/game_content_page.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/game_instruction/game_instruction_page.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/ranking_page.dart';
 import 'package:helper/res/constants.dart';
@@ -19,6 +20,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
     super.dispose();
   }
 
+  void _push() {
+    Navigator.of(context).push(
+      GameContentPage.route(
+        userName: _nameController.text,
+      ),
+    );
+  }
+
   void _validate(SnackBar snackBar) {
     if (_nameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -26,6 +35,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
       );
       return;
     }
+
+    _push();
   }
 
   @override
@@ -53,9 +64,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'ほっとしているネコを守れ',
+                    'save the cat',
                     style: textTheme.headlineSmall!.copyWith(
                       fontWeight: FontWeight.bold,
+                      fontSize: 40,
                     ),
                   ),
                   const SizedBox(height: 40),

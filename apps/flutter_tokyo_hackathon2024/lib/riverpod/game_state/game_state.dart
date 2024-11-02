@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:helper/logger/logger.dart';
 
 // import 'package:equatable/equatable.dart';
-import '../../game/components/moving_component.dart';
+import '../../game/components/moving/moving_component.dart';
 // import '../../game/entities/value_wrapper.dart';
 import '../../game/model/domain_error.dart';
 import '../../game/motivation/motivation_component.dart';
@@ -172,17 +172,21 @@ class GameStateNotifier extends StateNotifier<GameState> {
     }
   }
 
-  // void _tryToSwitchToMultiSpawnGameMode() {
-  //   if (state.currentGameMode is GameModeMultiSpawn ||
-  //       state.upcomingGameMode != null) return;
-  //   if (state.difficulty < 0.5 ||
-  //       Random().nextDouble() > GameConstants.multiShieldGameModeChance) return;
+  void _tryToSwitchToMultiSpawnGameMode() {
+    if (state.currentGameMode is GameModeMultiSpawn ||
+        state.upcomingGameMode != null) {
+      return;
+    }
+    if (state.difficulty < 0.5 ||
+        Random().nextDouble() > GameConstants.multiShieldGameModeChance) {
+      return;
+    }
 
-  /// final count = Random().nextInt(4) + 2;
-  // state = state.copyWith(
-  //   upcomingGameMode: ValueWrapper(GameModeMultiSpawn(spawnerSpawnCount: count)),
-  // );
-  // }
+    final count = Random().nextInt(4) + 2;
+    state = state.copyWith(
+      upcomingGameMode: const GameModeSingleSpawn(),
+    );
+  }
 
   void potatoOrbHit() {
     var updatedGameMode =
@@ -339,17 +343,18 @@ class GameStateNotifier extends StateNotifier<GameState> {
   }
 
   void onShieldHit(MovingComponent movingComponent) {
-    // if (movingComponent is FireOrb || movingComponent is IceOrb) {
-    //   var updatedGameMode = state.currentGameMode.increaseDefendedOrbsCount(count: 1);
-    //   updatedGameMode = updatedGameMode.increaseDefendOrbStreakCount(count: 1);
-    //   state = state.copyWith(
-    //     shieldHitCounter: state.shieldHitCounter + 1,
-    //     currentGameMode: updatedGameMode,
-    //   );
-    // }
-    // if (state.shieldHitCounter % GameConstants.tryToSwitchGameModeEvery == 0) {
-    //   _tryToSwitchToMultiSpawnGameMode();
-    // }
+    if (movingComponent is FireOrb) {
+      var updatedGameMode =
+          state.currentGameMode.increaseDefendedOrbsCount(count: 1);
+      updatedGameMode = updatedGameMode.increaseDefendOrbStreakCount(count: 1);
+      state = state.copyWith(
+        shieldHitCounter: state.shieldHitCounter + 1,
+        currentGameMode: updatedGameMode,
+      );
+    }
+    if (state.shieldHitCounter % GameConstants.tryToSwitchGameModeEvery == 0) {
+      _tryToSwitchToMultiSpawnGameMode();
+    }
   }
 }
 

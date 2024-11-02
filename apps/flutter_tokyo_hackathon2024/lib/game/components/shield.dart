@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../neko_game.dart';
 import '../player/neko.dart';
-import 'orb_type.dart';
+import 'moving/orb/orb_type.dart';
 
 class Shield extends PositionComponent
     with
@@ -45,16 +45,10 @@ class Shield extends PositionComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    _smallSparkleSprites = switch (type) {
-      OrbType.fire => [
-          await Sprite.load('sparkle/sparkle1.png'),
-          await Sprite.load('sparkle/sparkle2.png'),
-        ],
-      OrbType.ice => [
-          await Sprite.load('snow/snowflake1.png'),
-          await Sprite.load('snow/snowflake2.png'),
-        ],
-    };
+    _smallSparkleSprites = [
+      await Sprite.load('sparkle/sparkle1.png'),
+      await Sprite.load('sparkle/sparkle2.png'),
+    ];
 
     shieldLineColor = type.baseColor.withOpacity(0);
     shieldTargetColor = type.baseColor.withOpacity(0.8);

@@ -33,6 +33,7 @@ dev_dependencies:
   flame_riverpod: ^5.4.5
   equatable: ^2.0.5
   flutter_animate: ^4.5.0
+  flutter_sprite: ^3.0.5
 
   flutter_gen_runner: ^5.8.0
 

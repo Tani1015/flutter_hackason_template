@@ -8,6 +8,8 @@ import 'package:flame/game.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tokyo_hackathon2024/game/components/moving/moving_component.dart';
+import 'package:flutter_tokyo_hackathon2024/game/components/moving/moving_component_spwaner.dart';
 import 'package:flutter_tokyo_hackathon2024/game/player/neko.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state_notifier.dart';
 
@@ -50,6 +52,10 @@ class NekoGame extends FlameGame<MyWorld>
         );
   }
 
+  void onOrbHit() {
+    ref.read(gameStateProvider.notifier).potatoOrbHit();
+  }
+
   Random rnd = Random();
 }
 
@@ -59,6 +65,9 @@ class MyWorld extends World with HasGameRef<NekoGame> {
   @override
   FutureOr<void> onLoad() async {
     await add(player = Neko());
+    add(
+      MovingComponentSpawner(),
+    );
     return super.onLoad();
   }
 }

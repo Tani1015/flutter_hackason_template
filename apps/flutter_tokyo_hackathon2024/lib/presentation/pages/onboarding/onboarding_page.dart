@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:helper/res/app_theme.dart';
-import 'game_instruction_screen.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class OnboardingPage extends StatefulWidget {
+  const OnboardingPage({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _OnboardingPageState extends State<OnboardingPage> {
   final TextEditingController _nameController = TextEditingController();
 
   @override
@@ -21,6 +19,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       body: SafeArea(
@@ -31,19 +31,15 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               Text(
                 'ほっとしているネコを守れ',
-                style: theme.textTheme.headlineLarge?.copyWith(
+                style: theme.textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 40),
               TextField(
                 controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: '名前を入力してください',
-                  border: const OutlineInputBorder(),
-                  filled: true,
-                  fillColor: theme.colorScheme.surface,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                decoration: const InputDecoration(
+                  helperText: 'ユーザ名を入力してください',
                 ),
               ),
               const SizedBox(height: 20),
@@ -51,11 +47,18 @@ class _MainScreenState extends State<MainScreen> {
                 onPressed: () {
                   if (_nameController.text.trim().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('名前を入力してください')),
+                      SnackBar(
+                        content: Text(
+                          '名前を入力してください',
+                          style: textTheme.bodyMedium!.copyWith(
+                            color: colorScheme.error,
+                          ),
+                        ),
+                        backgroundColor: colorScheme.onPrimary,
+                      ),
                     );
                     return;
                   }
-                  // TODO: ゲーム画面へ移動
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(200, 50),
@@ -70,14 +73,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const GameInstructionScreen(),
-                    ),
-                  );
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(200, 50),
                   backgroundColor: theme.colorScheme.secondary,
@@ -91,9 +87,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {
-                  // TODO: ランキング画面へ移動
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(200, 50),
                   backgroundColor: theme.colorScheme.tertiary,

@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class GameInstructionScreen extends StatelessWidget {
-  const GameInstructionScreen({super.key});
+  const GameInstructionScreen._();
+
+  static const _path = '/game_instruction';
+
+  static Route<void> route() => MaterialPageRoute(
+        builder: (_) => const GameInstructionScreen._(),
+        settings: const RouteSettings(
+          name: _path,
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {

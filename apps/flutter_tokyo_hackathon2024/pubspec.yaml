@@ -45,6 +45,20 @@ flutter:
   uses-material-design: true
   assets:
     - assets/json/
+    - assets/images/flame/
+    - assets/images/flutter_flame/
+    - assets/images/snow/
+    - assets/images/sparkle/
+    - assets/images/orb/
+    - assets/images/heart/
+    - assets/images/trophy/
+    - assets/images/icons/
+    - assets/images/
+    - assets/fonts/
+    - assets/audio/
+    - assets/audio/motivation/
+    - assets/rive/
+    - assets/logo/
 
 flutter_gen:
   output: lib/generated/

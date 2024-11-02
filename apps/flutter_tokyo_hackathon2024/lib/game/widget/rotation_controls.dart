@@ -28,7 +28,7 @@ class RotationControls extends StatelessWidget {
           child: GestureDetector(
             onTapDown: (_) => onLeftDown(),
             onTapUp: (_) => onLeftUp(),
-            onTapCancel: () => onLeftUp(),
+            onTapCancel: onLeftUp,
             child: Container(
               height: double.infinity,
               color: Colors.transparent,
@@ -55,7 +55,7 @@ class RotationControls extends StatelessWidget {
           child: GestureDetector(
             onTapDown: (_) => onRightDown(),
             onTapUp: (_) => onRightUp(),
-            onTapCancel: () => onRightUp(),
+            onTapCancel: onRightUp,
             child: Container(
               height: double.infinity,
               color: Colors.transparent,
@@ -107,7 +107,7 @@ class _GuideWidget extends StatelessWidget {
         const Text(
           tapAndHoldText,
           style: TextStyle(
-            fontSize: 22.0,
+            fontSize: 22,
             height: -0.2,
             fontFamily: 'Roboto',
           ),
@@ -122,7 +122,7 @@ class _GuideWidget extends StatelessWidget {
           ),
         )
         .scaleXY(
-          begin: 1.0,
+          begin: 1,
           end: 1.25,
           curve: Curves.fastOutSlowIn,
           delay: const Duration(milliseconds: 1400),
@@ -131,7 +131,7 @@ class _GuideWidget extends StatelessWidget {
           ),
         )
         .rotate(
-          begin: 0.0,
+          begin: 0,
           end: isLeft ? -0.013 : 0.013,
           curve: Curves.easeOut,
           delay: const Duration(milliseconds: 1400),

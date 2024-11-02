@@ -58,7 +58,6 @@ flutter:
     - assets/audio/
     - assets/audio/motivation/
     - assets/rive/
-    - assets/logo/
 
 flutter_gen:
   output: lib/generated/

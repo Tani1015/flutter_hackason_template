@@ -53,6 +53,7 @@ flutter:
     - assets/images/heart/
     - assets/images/trophy/
     - assets/images/icons/
+    - assets/images/enemies/
     - assets/images/
     - assets/fonts/
     - assets/audio/

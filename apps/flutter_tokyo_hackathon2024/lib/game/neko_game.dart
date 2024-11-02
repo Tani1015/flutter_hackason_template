@@ -8,6 +8,7 @@ import 'package:flame/game.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tokyo_hackathon2024/game/enemies/poop_enemy.dart';
 import 'package:flutter_tokyo_hackathon2024/game/player/neko.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state_notifier.dart';
 
@@ -22,6 +23,9 @@ class NekoGame extends FlameGame<MyWorld>
           ),
         );
 
+         final Random random = Random();
+  late Timer enemySpawnTimer;
+
   @override
   Future<void> onLoad() async {
     await Flame.images.loadAll([
@@ -30,12 +34,28 @@ class NekoGame extends FlameGame<MyWorld>
       ...List.generate(2, (index) => 'sparkle/sparkle${index + 1}.png'),
       'two-way-arrow.png',
     ]);
+
+     enemySpawnTimer = Timer(2, repeat: true, onTick: _spawnEnemy);
+    enemySpawnTimer.start();
+
+
     super.onLoad();
+  }
+
+    void _spawnEnemy() {
+    // Posición aleatoria en la parte superior de la pantalla
+    final xPosition = random.nextDouble() * size.x;
+    final enemy = PoopEnemy(
+      speed: 100,  // Ajusta la velocidad según necesites
+      position: Vector2(xPosition, -10),  // Empieza justo encima de la pantalla
+    );
+    add(enemy);
   }
 
   @override
   void update(double dt) {
     ref.read(gameStateProvider.notifier).update(dt);
+    enemySpawnTimer.update(dt); 
     super.update(dt);
   }
 
@@ -56,9 +76,15 @@ class NekoGame extends FlameGame<MyWorld>
 class MyWorld extends World with HasGameRef<NekoGame> {
   late Neko player;
 
+
+
   @override
   FutureOr<void> onLoad() async {
     await add(player = Neko());
+    
+    final enemy = PoopEnemy(speed: 20, size: Vector2(25, 15));
+    add(enemy);
+
     return super.onLoad();
   }
 }

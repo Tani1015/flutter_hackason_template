@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/ranking_page.dart';
 import 'package:helper/presentation/app/navigator_handler.dart';
 import 'package:helper/presentation/app_wrapper.dart';
 import 'package:helper/res/app_theme.dart';
@@ -62,7 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context).push(
+                      RankingPage.route(),
+                    ),
                     child: const Text('参加する'),
                   ),
                 ],

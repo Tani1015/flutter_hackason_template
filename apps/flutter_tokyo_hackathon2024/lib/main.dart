@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tokyo_hackathon2024/firebase_options.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/onboarding/onboarding_page.dart';
 import 'package:helper/presentation/app/navigator_handler.dart';
 import 'package:helper/presentation/app_wrapper.dart';
@@ -8,7 +9,9 @@ import 'package:helper/res/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MyApp());
 }
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Hackathon 2024',
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
+      initialRoute: '/',
       theme: themeLight,
       darkTheme: themeDark,
       builder: (_, child) => AppWrapper(child!),

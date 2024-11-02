@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
+import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/widgets/ranking_list.dart';
 import 'package:helper/presentation/widgets/lottie.dart';
 
-class RankingPage extends StatelessWidget {
+class RankingPage extends StatefulWidget {
   const RankingPage._();
 
   static const _path = '/ranking';
@@ -15,25 +16,39 @@ class RankingPage extends StatelessWidget {
       );
 
   @override
+  State<RankingPage> createState() => _RankingPageState();
+}
+
+class _RankingPageState extends State<RankingPage> {
+  @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
+
+    final celebrateAnimation = ImmediatelyLottie(
+      width: screenWidth / 3,
+      Assets.json.celebrate.path,
+    );
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('ランキング'),
         centerTitle: true,
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
         children: [
-          ImmediatelyLottie(
-            width: screenWidth * 0.5,
-            Assets.json.celebrate.path,
+          const Center(
+            child: RankingList(),
           ),
-          ImmediatelyLottie(
-            width: screenWidth * 0.5,
-            Assets.json.celebrate.path,
+          Positioned.fill(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                celebrateAnimation,
+                celebrateAnimation,
+                celebrateAnimation,
+              ],
+            ),
           ),
         ],
       ),

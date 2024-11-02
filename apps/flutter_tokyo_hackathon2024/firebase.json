@@ -1,16 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
-}
+{"hosting":{"public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]},"flutter":{"platforms":{"android":{"default":{"projectId":"flutter-hackthon-2024","appId":"1:194581681788:android:fc36f2e250b0bd56dcdbf9","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"flutter-hackthon-2024","appId":"1:194581681788:ios:9a095e8ff8a61b09dcdbf9","uploadDebugSymbols":true,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"flutter-hackthon-2024","appId":"1:194581681788:ios:9a095e8ff8a61b09dcdbf9","uploadDebugSymbols":true,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"flutter-hackthon-2024","configurations":{"android":"1:194581681788:android:fc36f2e250b0bd56dcdbf9","ios":"1:194581681788:ios:9a095e8ff8a61b09dcdbf9","macos":"1:194581681788:ios:9a095e8ff8a61b09dcdbf9","web":"1:194581681788:web:90829c1d5f164cb6dcdbf9","windows":"1:194581681788:web:057098819bf6a9b9dcdbf9"}}}}}}

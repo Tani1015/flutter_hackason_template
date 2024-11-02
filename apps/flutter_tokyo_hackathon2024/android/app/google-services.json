@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "194581681788",
+    "project_id": "flutter-hackthon-2024",
+    "storage_bucket": "flutter-hackthon-2024.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194581681788:android:fc36f2e250b0bd56dcdbf9",
+        "android_client_info": {
+          "package_name": "net.andai.flutter_tokyo_hackathon2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR-9qw74i8GBJpwyP8i4xEVsSuuWKLKpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

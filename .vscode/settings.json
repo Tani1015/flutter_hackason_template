@@ -18,5 +18,5 @@
   "search.exclude": {
     "**/.fvm": true
   },
-  "commentTranslate.hover.enabled": false
+  "commentTranslate.hover.enabled": true
 }

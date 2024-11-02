@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/content/game_content_page.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/game_instruction/game_instruction_page.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/ranking_page.dart';
+import 'package:helper/extensions/context_extension.dart';
 import 'package:helper/res/constants.dart';
+import 'package:helper/res/widget_themes/input_decoration_theme.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -73,8 +75,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   const SizedBox(height: 40),
                   const Text('ユーザ名を入力してください'),
                   const SizedBox(height: 4),
-                  TextField(
+                  TextFormField(
                     controller: _nameController,
+                    style: textTheme.headlineSmall,
+                    textAlignVertical: TextAlignVertical.center,
+                    onTapOutside: (_) => context.hideKeyboard(),
                   ),
                   const SizedBox(height: 40),
                   FilledButton(

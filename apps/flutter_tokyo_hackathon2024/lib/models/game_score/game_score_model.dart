@@ -19,5 +19,5 @@ class GameScoreModel with _$GameScoreModel {
 
   static String get collectionPath => 'users';
 
-  static String get documentPath => '$collectionPath/doc/';
+  static String documentPath(String userName) => '$collectionPath/$userName/';
 }

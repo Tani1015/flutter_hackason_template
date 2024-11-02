@@ -3,7 +3,6 @@ import 'package:helper/res/app_colors.dart';
 import 'package:helper/res/typography.dart';
 
 final appInputDecorationTheme = InputDecorationTheme(
-  isDense: true,
   labelStyle: baseTextTheme.bodyMedium,
   helperStyle: baseTextTheme.bodyMedium!.copyWith(
     color: AppColors.outline,

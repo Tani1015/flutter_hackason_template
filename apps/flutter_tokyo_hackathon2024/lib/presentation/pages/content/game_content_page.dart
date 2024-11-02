@@ -41,13 +41,23 @@ class _GameContentPageState extends State<GameContentPage> {
 
     try {
       await _firebaseHelper.set(
-        documentPath: GameScoreModel.documentPath,
+        documentPath: GameScoreModel.documentPath(
+          widget.userName,
+        ),
         data: data.toJson(),
         setOptions: SetOptions(merge: true),
       );
     } on Exception catch (e) {
       logger.warning(e);
     }
+
+    if (context.mounted) {
+      _pop();
+    }
+  }
+
+  void _pop() {
+    Navigator.of(context).pop();
   }
 
   @override
@@ -62,7 +72,7 @@ class _GameContentPageState extends State<GameContentPage> {
       body: Center(
         child: FilledButton(
           onPressed: () async {
-            await _saveGameScore(score: 8);
+            await _saveGameScore(score: 12);
           },
           child: const Text('save'),
         ),

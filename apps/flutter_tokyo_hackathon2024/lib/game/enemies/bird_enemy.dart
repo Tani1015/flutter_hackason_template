@@ -2,9 +2,10 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 
+import '../neko_game.dart';
 import 'poop_enemy.dart'; // Importa la clase PoopEnemy
 
-class BirdEnemy extends SpriteComponent with HasGameRef {
+class BirdEnemy extends SpriteComponent with HasGameRef<NekoGame>{
   final double speed;
   final Random random = Random();
   late Timer dropTimer;
@@ -19,7 +20,7 @@ class BirdEnemy extends SpriteComponent with HasGameRef {
   Future<void> onLoad() async {
     sprite = await gameRef.loadSprite('enemies/bird.png'); 
 
-    position = Vector2(gameRef.size.x + size.x, random.nextDouble() * (gameRef.size.y * 0.3));
+    position = Vector2(gameRef.size.x + size.x, 10);
 
    
     final randomDropTime = 1 + random.nextDouble() * 2; 
@@ -33,11 +34,11 @@ class BirdEnemy extends SpriteComponent with HasGameRef {
 
   void _dropPoop() {
   
-    final poop = PoopEnemy(
-      speed: 100, 
-      position: Vector2(position.x, position.y + size.y),
-    );
-    gameRef.add(poop);
+     final poop = PoopEnemy(
+    speed: 100,
+    position: Vector2(0, size.y), // Posición relativa a BirdEnemy
+  );
+  gameRef.world.add(poop);
   }
 
   @override
@@ -50,7 +51,7 @@ class BirdEnemy extends SpriteComponent with HasGameRef {
   
     if (x < -size.x) {
       x = gameRef.size.x + size.x;
-      y = random.nextDouble() * (gameRef.size.y * 0.3); 
+      y = 10;
       dropTimer.start();
     }
 

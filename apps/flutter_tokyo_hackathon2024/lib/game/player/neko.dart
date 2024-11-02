@@ -5,6 +5,7 @@ import 'package:flame/components.dart';
 
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tokyo_hackathon2024/game/components/moving_component.dart';
 import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state.dart';
 import 'package:helper/presentation/widgets/lottie.dart';
@@ -36,6 +37,7 @@ class Neko extends PositionComponent
   double get radius => size.x / 2;
 
   late AnimationController lottieController;
+  
 
   @override
   Future<void> onLoad() async {
@@ -55,6 +57,17 @@ class Neko extends PositionComponent
     add(shield = Shield(type: OrbType.fire));
   }
 
+  @override 
+   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+
+     print("neko esta");
+    super.onCollision(intersectionPoints, other);
+
+     if(other is MovingComponent){
+      
+     }
+   }
+
   @override
   void update(double dt) {
     super.update(dt);
@@ -69,11 +82,7 @@ class Neko extends PositionComponent
     }
   }
 
-  @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    other.removeFromParent();
-    super.onCollision(intersectionPoints, other);
-  }
+
 
   @override
   void onRemove() {

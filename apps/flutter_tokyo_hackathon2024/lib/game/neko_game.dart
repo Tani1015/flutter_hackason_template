@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
@@ -25,7 +26,6 @@ class NekoGame extends FlameGame<MyWorld>
           ),
         );
 
-         final Random random = Random();
   late Timer enemySpawnTimer;
 
   @override
@@ -37,22 +37,13 @@ class NekoGame extends FlameGame<MyWorld>
       'two-way-arrow.png',
     ]);
 
-     enemySpawnTimer = Timer(4, repeat: true, onTick: _spawnEnemy);
-    enemySpawnTimer.start();
-
-
     super.onLoad();
   }
 
-    void _spawnEnemy() {
-    final bird = BirdEnemy(speed: 100);
-      add(bird);
-  }
 
   @override
   void update(double dt) {
     ref.read(gameStateProvider.notifier).update(dt);
-    enemySpawnTimer.update(dt); 
     super.update(dt);
   }
 
@@ -70,15 +61,27 @@ class NekoGame extends FlameGame<MyWorld>
   Random rnd = Random();
 }
 
-class MyWorld extends World with HasGameRef<NekoGame> {
+class MyWorld extends World with HasGameRef<NekoGame>, HasCollisionDetection {
   late Neko player;
-
-
+  late Timer enemySpawnTimer;
 
   @override
   FutureOr<void> onLoad() async {
     await add(player = Neko());
-    
+    enemySpawnTimer = Timer(4, repeat: true, onTick: _spawnEnemy);
+    enemySpawnTimer.start();
     return super.onLoad();
   }
+
+  void _spawnEnemy() {
+    final bird = BirdEnemy(speed: 100);
+    add(bird);
+  }
+  
+  @override
+  void update(double dt) {
+     enemySpawnTimer.update(dt); 
+    super.update(dt);
+  }
+
 }

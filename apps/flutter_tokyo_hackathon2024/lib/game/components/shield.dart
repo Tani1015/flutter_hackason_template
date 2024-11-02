@@ -5,7 +5,9 @@ import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/particles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tokyo_hackathon2024/game/components/moving_component.dart';
 
+import '../enemies/poop_enemy.dart';
 import '../neko_game.dart';
 import '../player/neko.dart';
 import 'orb_type.dart';
@@ -45,6 +47,7 @@ class Shield extends PositionComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    priority = 2;
     _smallSparkleSprites = switch (type) {
       OrbType.fire => [
           await Sprite.load('sparkle/sparkle1.png'),
@@ -107,8 +110,8 @@ class Shield extends PositionComponent
 
     add(
       PolygonHitbox(
-        vertices,
-      ),
+        vertices
+      )..debugMode = true..collisionType = CollisionType.active,
     );
   }
 
@@ -303,5 +306,19 @@ class Shield extends PositionComponent
   void onRemove() {
     _particleTimer.stop();
     super.onRemove();
+  }
+
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    
+    super.onCollision(intersectionPoints, other);
+  }
+
+  @override
+  void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
+   
+    super.onCollisionStart(intersectionPoints, other);
+        
   }
 }

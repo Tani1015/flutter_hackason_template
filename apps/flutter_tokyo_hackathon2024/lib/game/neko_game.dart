@@ -81,8 +81,6 @@ class MyWorld extends World with HasGameRef<NekoGame> {
   FutureOr<void> onLoad() async {
     await add(player = Neko());
     
-    final enemy = PoopEnemy(speed: 20, size: Vector2(25, 15));
-    add(enemy);
 
     return super.onLoad();
   }

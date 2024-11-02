@@ -14,11 +14,16 @@ melos gen → fvm flutter oub run melos gen
 (fvm) dart pub global activate melos
 ```
 
-### パッケージ取得
+### セットアップ
 ```
 melos bs
 もしくは
 melos bootstrap
+```
+
+### パッケージ取得
+```
+melos get
 ```
 
 ### Auto Generated

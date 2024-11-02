@@ -1,0 +1,15 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run chrome",
+        "request": "launch",
+        "type": "dart",
+        "program": "apps/flutter_tokyo_hackathon2024/lib/main.dart",
+        "flutterMode": "debug",
+      },
+    ]
+  }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helper/res/app_colors.dart';
 
-final _appFonts = GoogleFonts.notoSansJavaneseTextTheme();
+final _appFonts = GoogleFonts.notoSansTextTheme();
 
 const baseTextTheme = TextTheme(
   headlineSmall: TextStyle(

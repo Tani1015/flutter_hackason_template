@@ -42,7 +42,6 @@ class Shield extends PositionComponent
   late Paint sparklePaint;
   late Paint shieldLinePaint;
 
-
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -57,7 +56,7 @@ class Shield extends PositionComponent
         ],
     };
 
-    shieldLineColor = type.baseColor.withOpacity(0.0);
+    shieldLineColor = type.baseColor.withOpacity(0);
     shieldTargetColor = type.baseColor.withOpacity(0.8);
     size = parent.size + Vector2.all(shieldWidth * 2) + Vector2.all(offset * 2);
     position = parent.size / 2;
@@ -73,7 +72,7 @@ class Shield extends PositionComponent
     _addHitbox();
 
     _flameSprites = [];
-    for (int i = 1; i <= 8; i++) {
+    for (var i = 1; i <= 8; i++) {
       _flameSprites.add(await Sprite.load('flame/flame$i.png'));
     }
 
@@ -89,15 +88,15 @@ class Shield extends PositionComponent
     final radius = size.x / 2;
     final startAngle = 0 - shieldSweep / 2;
 
-    List<Vector2> vertices = [];
-    for (int i = 0; i < precision; i++) {
+    final vertices = <Vector2>[];
+    for (var i = 0; i < precision; i++) {
       final thisSegment = startAngle + segment * i;
       vertices.add(
         center + Vector2(cos(thisSegment), sin(thisSegment)) * radius,
       );
     }
 
-    for (int i = precision - 1; i >= 0; i--) {
+    for (var i = precision - 1; i >= 0; i--) {
       final thisSegment = startAngle + segment * i;
       vertices.add(
         center +
@@ -106,25 +105,26 @@ class Shield extends PositionComponent
       );
     }
 
-    add(PolygonHitbox(
-      vertices,
-      collisionType: CollisionType.active,
-    ));
+    add(
+      PolygonHitbox(
+        vertices,
+      ),
+    );
   }
 
-  final _opacityTween = Tween(begin: 0.4, end: 0.0);
+  final _opacityTween = Tween(begin: 0.4, end: 0);
 
   void _addParticles() {
-    Random rnd = game.rnd;
+    final rnd = game.rnd;
 
     final increaseDecreaseTween = TweenSequence<double>([
       TweenSequenceItem<double>(
-        tween: Tween<double>(begin: 0.0, end: 0.8)
+        tween: Tween<double>(begin: 0, end: 0.8)
             .chain(CurveTween(curve: Curves.easeIn)),
         weight: 0.5,
       ),
       TweenSequenceItem<double>(
-        tween: Tween<double>(begin: 0.8, end: 0.0)
+        tween: Tween<double>(begin: 0.8, end: 0)
             .chain(CurveTween(curve: Curves.easeOut)),
         weight: 0.5,
       ),
@@ -159,105 +159,113 @@ class Shield extends PositionComponent
             isShortFlame ? shortFlameAngle : pi / 2 + largeFlameAngle;
 
         /// Trail
-        parent.parent.add(ParticleSystemComponent(
-          priority: -10,
-          angle: angle,
-          anchor: Anchor.center,
-          particle: ComputedParticle(
-            lifespan: 0.15,
-            renderer: (canvas, particle) {
-              final opacity = _opacityTween.transform(particle.progress);
-              if (opacity <= 0.01) {
-                return;
-              }
-              canvas.drawArc(
-                Rect.fromCircle(
-                  center: Offset.zero,
-                  radius: radius,
-                ),
-                -(shieldSweep / 2),
-                shieldSweep,
-                false,
-                Paint()
-                  ..color = type.intenseColor.withOpacity(0.2)
-                  ..style = PaintingStyle.stroke
-                  ..strokeCap = StrokeCap.round
-                  ..strokeWidth = 8,
-              );
-            },
-          ),
-        ));
-
-        // Main flames (inside and moving out)
-        add(ParticleSystemComponent(
-          position: localPos,
-          anchor: Anchor.center,
-          particle: AcceleratedParticle(
-            lifespan: 2,
-            acceleration: isShortFlame
-                ? Vector2(
-                    rnd.nextDouble() * 40,
-                    -10 + rnd.nextDouble() * 20,
-                  )
-                : Vector2(
-                    0,
-                    -20 + rnd.nextDouble() * 40,
-                  ),
-            child: ComputedParticle(
+        parent.parent.add(
+          ParticleSystemComponent(
+            priority: -10,
+            angle: angle,
+            anchor: Anchor.center,
+            particle: ComputedParticle(
+              lifespan: 0.15,
               renderer: (canvas, particle) {
-                final opacity = increaseDecreaseTween.transform(
-                  particle.progress,
-                );
-                canvas.rotate(rotation);
+                final opacity = _opacityTween.transform(particle.progress);
                 if (opacity <= 0.01) {
                   return;
                 }
-                sprite.render(
-                  canvas,
-                  size: spriteActualSize,
-                  anchor: Anchor.center,
-                  overridePaint: flamePaint
-                    ..colorFilter = ColorFilter.mode(
-                      color.withOpacity(opacity),
-                      BlendMode.srcIn,
-                    ),
+                canvas.drawArc(
+                  Rect.fromCircle(
+                    center: Offset.zero,
+                    radius: radius,
+                  ),
+                  -(shieldSweep / 2),
+                  shieldSweep,
+                  false,
+                  Paint()
+                    ..color = type.intenseColor.withOpacity(0.2)
+                    ..style = PaintingStyle.stroke
+                    ..strokeCap = StrokeCap.round
+                    ..strokeWidth = 8,
                 );
               },
             ),
           ),
-        ));
+        );
+
+        // Main flames (inside and moving out)
+        add(
+          ParticleSystemComponent(
+            position: localPos,
+            anchor: Anchor.center,
+            particle: AcceleratedParticle(
+              lifespan: 2,
+              acceleration: isShortFlame
+                  ? Vector2(
+                      rnd.nextDouble() * 40,
+                      -10 + rnd.nextDouble() * 20,
+                    )
+                  : Vector2(
+                      0,
+                      -20 + rnd.nextDouble() * 40,
+                    ),
+              child: ComputedParticle(
+                renderer: (canvas, particle) {
+                  final opacity = increaseDecreaseTween.transform(
+                    particle.progress,
+                  );
+                  canvas.rotate(rotation);
+                  if (opacity <= 0.01) {
+                    return;
+                  }
+                  sprite.render(
+                    canvas,
+                    size: spriteActualSize,
+                    anchor: Anchor.center,
+                    overridePaint: flamePaint
+                      ..colorFilter = ColorFilter.mode(
+                        color.withOpacity(opacity),
+                        BlendMode.srcIn,
+                      ),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
 
         // Sparkles (moving out)
         final extraParticle = _smallSparkleSprites.random(game.rnd);
-        add(ParticleSystemComponent(
-          position: localPos,
-          anchor: Anchor.center,
-          particle: AcceleratedParticle(
-            lifespan: 1.15,
-            acceleration: Vector2(
-              (rnd.nextDouble() * 120) - 20,
-              -15 + rnd.nextDouble() * 30,
-            ),
-            child: ComputedParticle(renderer: (Canvas c, Particle particle) {
-              final opacity =
-                  increaseDecreaseTween.transform(particle.progress);
+        add(
+          ParticleSystemComponent(
+            position: localPos,
+            anchor: Anchor.center,
+            particle: AcceleratedParticle(
+              lifespan: 1.15,
+              acceleration: Vector2(
+                (rnd.nextDouble() * 120) - 20,
+                -15 + rnd.nextDouble() * 30,
+              ),
+              child: ComputedParticle(
+                renderer: (Canvas c, Particle particle) {
+                  final opacity =
+                      increaseDecreaseTween.transform(particle.progress);
 
-              if (opacity <= 0.01) {
-                return;
-              }
-              extraParticle.render(
-                c,
-                size: Vector2.all(opacity * 14),
-                anchor: Anchor.center,
-                overridePaint: sparklePaint
-                  ..colorFilter = ColorFilter.mode(
-                    color.withOpacity(opacity),
-                    BlendMode.srcIn,
-                  ),
-              );
-            }),
+                  if (opacity <= 0.01) {
+                    return;
+                  }
+                  extraParticle.render(
+                    c,
+                    size: Vector2.all(opacity * 14),
+                    anchor: Anchor.center,
+                    overridePaint: sparklePaint
+                      ..colorFilter = ColorFilter.mode(
+                        color.withOpacity(opacity),
+                        BlendMode.srcIn,
+                      ),
+                  );
+                },
+              ),
+            ),
           ),
-        ));
+        );
       },
       repeat: true,
     );
@@ -289,13 +297,6 @@ class Shield extends PositionComponent
         ..color = shieldLineColor
         ..strokeWidth = shieldWidth,
     );
-  }
-
-  @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollisionStart(intersectionPoints, other);
-
   }
 
   @override

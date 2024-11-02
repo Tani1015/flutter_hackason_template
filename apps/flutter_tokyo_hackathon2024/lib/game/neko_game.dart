@@ -2,18 +2,25 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tokyo_hackathon2024/game/player/neko.dart';
+import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state_notifier.dart';
 
 class NekoGame extends FlameGame<MyWorld>
-    with HasCollisionDetection, RiverpodGameMixin<MyWorld> {
+    with HasCollisionDetection, RiverpodGameMixin<MyWorld>, KeyboardEvents {
   NekoGame()
       : super(
-            world: MyWorld(),
-            camera:
-                CameraComponent.withFixedResolution(width: 600, height: 600));
+          world: MyWorld(),
+          camera: CameraComponent.withFixedResolution(
+            width: 600,
+            height: 600,
+          ),
+        );
 
   @override
   Future<void> onLoad() async {
@@ -23,10 +30,19 @@ class NekoGame extends FlameGame<MyWorld>
       ...List.generate(2, (index) => 'sparkle/sparkle${index + 1}.png'),
       'two-way-arrow.png',
     ]);
-    // remove(world);
+    super.onLoad();
   }
 
-  
+  @override
+  KeyEventResult onKeyEvent(
+    KeyEvent event,
+    Set<LogicalKeyboardKey> keysPressed,
+  ) {
+    return ref.read(gameStateProvider.notifier).handleKeyEvent(
+          event,
+          keysPressed,
+        );
+  }
 
   Random rnd = Random();
 }

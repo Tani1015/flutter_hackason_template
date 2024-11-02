@@ -4,7 +4,6 @@ import 'package:flutter_tokyo_hackathon2024/presentation/pages/game_instruction/
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/ranking_page.dart';
 import 'package:helper/extensions/context_extension.dart';
 import 'package:helper/res/constants.dart';
-import 'package:helper/res/widget_themes/input_decoration_theme.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -78,6 +77,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   TextFormField(
                     controller: _nameController,
                     style: textTheme.headlineSmall,
+                    maxLength: 12,
                     textAlignVertical: TextAlignVertical.center,
                     onTapOutside: (_) => context.hideKeyboard(),
                   ),

@@ -9,7 +9,8 @@
     "noto",
     "Schyler",
     "supabase",
-    "unfocus"
+    "unfocus",
+    "vsync"
   ],
   "files.watcherExclude": {
     "**/.fvm": true

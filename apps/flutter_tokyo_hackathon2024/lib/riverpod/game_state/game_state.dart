@@ -24,7 +24,6 @@ class GameState extends Equatable {
     this.difficultyTimePassed = 0,
     this.playingState = const PlayingStateNone(),
     this.showGameOverUI = false,
-    this.shieldsAngleRotationSpeed = 0,
     this.restartGame = false,
     this.onNewHighScore,
     this.firstHealthReceived = false,
@@ -41,7 +40,6 @@ class GameState extends Equatable {
   final double difficultyTimePassed;
   final PlayingState playingState;
   final bool showGameOverUI;
-  final double shieldsAngleRotationSpeed;
   final bool restartGame;
   final OnlineScoreEntity? onNewHighScore;
   final bool firstHealthReceived;
@@ -76,7 +74,6 @@ class GameState extends Equatable {
     double? difficultyTimePassed,
     PlayingState? playingState,
     bool? showGameOverUI,
-    double? shieldsAngleRotationSpeed,
     bool? restartGame,
     OnlineScoreEntity? onNewHighScore,
     bool? firstHealthReceived,
@@ -93,8 +90,6 @@ class GameState extends Equatable {
       difficultyTimePassed: difficultyTimePassed ?? this.difficultyTimePassed,
       playingState: playingState ?? this.playingState,
       showGameOverUI: showGameOverUI ?? this.showGameOverUI,
-      shieldsAngleRotationSpeed:
-          shieldsAngleRotationSpeed ?? this.shieldsAngleRotationSpeed,
       restartGame: restartGame ?? this.restartGame,
       onNewHighScore: onNewHighScore ?? this.onNewHighScore,
       firstHealthReceived: firstHealthReceived ?? this.firstHealthReceived,
@@ -115,7 +110,6 @@ class GameState extends Equatable {
         difficultyTimePassed,
         playingState,
         showGameOverUI,
-        shieldsAngleRotationSpeed,
         restartGame,
         onNewHighScore,
         firstHealthReceived,
@@ -133,6 +127,8 @@ class GameStateNotifier extends StateNotifier<GameState> {
   GameStateNotifier() : super(const GameState());
 
   final double _shieldAngleRotationAmount = pi * 1.8;
+
+  static double shieldsAngleRotationSpeed = 0;
 
   // final ScoresRepository _scoresRepository;
   //final ConfigsRepository _configsRepository;
@@ -251,11 +247,9 @@ class GameStateNotifier extends StateNotifier<GameState> {
   // }
 
   void _updateShieldsRotationSpeed(double speed) {
-    state = state.copyWith(
-      shieldsAngleRotationSpeed: speed.clamp(
-        -_shieldAngleRotationAmount,
-        _shieldAngleRotationAmount,
-      ),
+    shieldsAngleRotationSpeed = speed.clamp(
+      -_shieldAngleRotationAmount,
+      _shieldAngleRotationAmount,
     );
   }
 
@@ -294,36 +288,34 @@ class GameStateNotifier extends StateNotifier<GameState> {
     );
 
     final containsRightArrow = keysPressed.contains(
-      LogicalKeyboardKey.arrowLeft,
+      LogicalKeyboardKey.arrowRight,
     );
-
-    logger
-      ..shout(keysPressed)
-      ..warning(containsRightArrow)
-      ..warning(containsLeftArrow);
 
     if (containsLeftArrow || containsRightArrow) {
       _guideInteracted();
     }
-    var rotationSpeed = 0;
+    // ignore: omit_local_variable_types
+    double rotationSpeed = 0;
     if (!containsRightArrow && !containsLeftArrow) {
       _updateShieldsRotationSpeed(0);
       return KeyEventResult.handled;
     }
 
     if (containsLeftArrow) {
-      rotationSpeed -= _shieldAngleRotationAmount.toInt();
+      rotationSpeed -= _shieldAngleRotationAmount;
     }
     if (containsRightArrow) {
-      rotationSpeed += _shieldAngleRotationAmount.toInt();
+      rotationSpeed += _shieldAngleRotationAmount;
     }
 
     if (rotationSpeed != 0) {
       _updateShieldsRotationSpeed(
-        rotationSpeed.toDouble(),
+        rotationSpeed,
       );
       return KeyEventResult.handled;
     }
+
+    logger.warning(rotationSpeed);
 
     return KeyEventResult.ignored;
   }

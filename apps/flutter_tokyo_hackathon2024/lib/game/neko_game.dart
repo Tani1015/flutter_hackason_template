@@ -34,6 +34,12 @@ class NekoGame extends FlameGame<MyWorld>
   }
 
   @override
+  void update(double dt) {
+    ref.read(gameStateProvider.notifier).update(dt);
+    super.update(dt);
+  }
+
+  @override
   KeyEventResult onKeyEvent(
     KeyEvent event,
     Set<LogicalKeyboardKey> keysPressed,

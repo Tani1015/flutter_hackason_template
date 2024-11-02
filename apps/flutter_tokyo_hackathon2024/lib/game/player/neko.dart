@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
+import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state.dart';
 import 'package:helper/presentation/widgets/lottie.dart';
 import '../../riverpod/game_state/game_state_notifier.dart';
 import '../../riverpod/playing_state.dart';
@@ -58,10 +59,9 @@ class Neko extends PositionComponent
   void update(double dt) {
     super.update(dt);
     final playState = ref.watch(playingStateProvider);
-    final gameState = ref.watch(gameStateProvider);
 
     if (playState.isNone) {
-      final rotationSpeed = gameState.shieldsAngleRotationSpeed;
+      final rotationSpeed = GameStateNotifier.shieldsAngleRotationSpeed;
 
       if (rotationSpeed != 0) {
         shield.angle += rotationSpeed * dt;

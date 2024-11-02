@@ -43,11 +43,10 @@ class NekoGame extends FlameGame<MyWorld>
   }
 
     void _spawnEnemy() {
-    // Posición aleatoria en la parte superior de la pantalla
     final xPosition = random.nextDouble() * size.x;
     final enemy = PoopEnemy(
-      speed: 100,  // Ajusta la velocidad según necesites
-      position: Vector2(xPosition, -10),  // Empieza justo encima de la pantalla
+      speed: 100,
+      position: Vector2(xPosition, -10), 
     );
     add(enemy);
   }

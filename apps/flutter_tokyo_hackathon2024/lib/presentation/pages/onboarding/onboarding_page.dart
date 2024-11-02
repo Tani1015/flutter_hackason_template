@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/game_instruction/game_instruction_page.dart';
+import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/ranking_page.dart';
 import 'package:helper/res/constants.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -115,7 +116,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ),
                   const SizedBox(height: 8),
                   FilledButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.of(context).push(
+                      RankingPage.route(),
+                    ),
                     style: FilledButton.styleFrom(
                       minimumSize: const Size(200, 48),
                       backgroundColor: colorScheme.tertiary,

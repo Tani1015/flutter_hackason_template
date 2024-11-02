@@ -11,25 +11,27 @@ import '../neko_game.dart';
 
 class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCallbacks{
   final double speed;
+  final Vector2 targetPosition;
+   late Vector2 velocity;
 
-  PoopEnemy({required this.speed, Vector2? position, Vector2? size})
+  PoopEnemy({required this.speed, Vector2? position, Vector2? size, required this.targetPosition})
       : super(position: position, size: size ?? Vector2(20, 20));
 
   @override
   Future<void> onLoad() async {
     add(CircleHitbox()..debugMode = true..collisionType = CollisionType.active);
     sprite = await gameRef.loadSprite('enemies/poop.png');
+    velocity = (targetPosition - position).normalized() * speed;
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    y += speed * dt; 
+   position += velocity * dt; 
 
-    if (y > gameRef.size.y) {
-      removeFromParent(); 
+    if (y > gameRef.size.y + size.y) {
+      removeFromParent();
     }
-    
   }
 
   @override

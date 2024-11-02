@@ -19,39 +19,49 @@ class BirdEnemy extends SpriteComponent with HasGameRef<NekoGame>{
   @override
   Future<void> onLoad() async {
     sprite = await gameRef.loadSprite('enemies/bird.png'); 
-
-    position = Vector2(gameRef.size.x + size.x, 10);
-
+    anchor = Anchor.center; 
    
-    final randomDropTime = 1 + random.nextDouble() * 2; 
+
+    final randomDropTime = 1 + random.nextDouble() * 5; 
     dropTimer = Timer(
       randomDropTime,
       onTick: _dropPoop,
       repeat: false,
     );
     dropTimer.start();
+
+    final nekoPosition = gameRef.world.player.position;
+    final birdY = nekoPosition.y - 200;
+
+     position = Vector2(gameRef.size.x + size.x, birdY);
   }
 
-  void _dropPoop() {
+ void _dropPoop() {
+   
+    final poopPosition = position + Vector2(0, size.y / 2);
+
   
-     final poop = PoopEnemy(
-    speed: 100,
-    position: Vector2(0, size.y), // Posición relativa a BirdEnemy
-  );
-  gameRef.world.add(poop);
+    final nekoPosition = gameRef.world.player.position;
+    final poop = PoopEnemy(
+      speed: 150,
+      position: poopPosition,
+      targetPosition: nekoPosition, 
+    );
+    gameRef.world.add(poop);
   }
+
 
   @override
   void update(double dt) {
     super.update(dt);
 
-  
     x -= speed * dt;
-
   
     if (x < -size.x) {
+      final nekoPosition = gameRef.world.player.position;
+      final birdY = nekoPosition.y - 200; 
+      y = birdY;
       x = gameRef.size.x + size.x;
-      y = 10;
       dropTimer.start();
     }
 

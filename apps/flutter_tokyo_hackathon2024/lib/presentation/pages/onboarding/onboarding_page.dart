@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/content/game_content_page.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/game_instruction/game_instruction_page.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/ranking_page.dart';
@@ -67,6 +68,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // TODO: ネコの尻尾が見えないのでネコの色を変えるか考えてみる
+                  Assets.json.cat.lottie(
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.contain,
+                  ),
                   Text(
                     'save the cat',
                     style: textTheme.headlineSmall!.copyWith(

@@ -1,6 +1,6 @@
 name: flutter_tokyo_hackathon2024
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
+
   firebase_core:
   firebase_helper:
     path: ../../packages/firebase_helper
@@ -19,7 +19,7 @@ dependencies:
 
   helper:
     path: ../../packages/helper
-  
+
   json_serializable: ^6.8.0
 
 dev_dependencies:
@@ -37,8 +37,6 @@ dev_dependencies:
   flutter_gen_runner: ^5.8.0
 
   pedantic_mono: ^1.29.0
-
-  
 
 flutter:
   generate: false
@@ -59,6 +57,9 @@ flutter:
     - assets/audio/
     - assets/audio/motivation/
     - assets/rive/
+    - assets/images/
+    - assets/images/instruction/
+    - assets/images/enemies/
 
 flutter_gen:
   output: lib/generated/

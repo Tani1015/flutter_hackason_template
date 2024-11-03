@@ -41,16 +41,9 @@ class _PlayGameState extends ConsumerState<PlayGame> {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
 
-    final gameState = ref.watch(gameStateProvider);
-    final playingState = ref.watch(playingStateProvider);
-    int currentScore = 0;
-
-    if (playingState is PlayingStateNone) {
-      print('update score');
-      currentScore = ref.read(playingStateProvider.notifier).currentScore.value;
-    }else{
-       print('no update score');
-    }
+   
+     final currentScore = ref.watch(scoreProvider);
+  
     return  Scaffold(
         body: Stack(
           children: [
@@ -78,20 +71,18 @@ class _PlayGameState extends ConsumerState<PlayGame> {
              Positioned(
               top: 20,
               left: 20,
-              child: Consumer(
-                builder: (context, ref, _) {
-                final currentScore = ref.watch(scoreProvider);
-                
-                  return Text(
+              child: 
+               
+     
+                   Text(
                     'Score: $currentScore user: ${widget.userName}' ,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                  );
-                },
-              ),
+                  )
+              
             ),
           ],
         ));

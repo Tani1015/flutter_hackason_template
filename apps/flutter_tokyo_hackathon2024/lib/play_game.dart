@@ -34,7 +34,7 @@ class PlayGame extends ConsumerStatefulWidget {
 class _PlayGameState extends ConsumerState<PlayGame> {
 
   Timer? _timer; 
-  ValueNotifier<int> _remainingTime = ValueNotifier<int>(60); // Valor inicial de 60 segundos
+  ValueNotifier<int> _remainingTime = ValueNotifier<int>(20); // Valor inicial de 60 segundos
 
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {

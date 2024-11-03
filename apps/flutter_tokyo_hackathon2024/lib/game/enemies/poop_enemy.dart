@@ -38,18 +38,13 @@ class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCall
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
 
-    switch (other) {
-      case Neko:
-      //  ref.read(gameStateProvider.notifier).loseLife();
-        removeFromParent();
-        break;
-//        break;
-      case Shield:
-      //ref.read(gameStateProvider.notifier).winPoint();
-        removeFromParent();
-        break;
-      //  break;
-    }
+ if (other is Neko) {
+    // ref.read(gameStateProvider.notifier).loseLife();
+    removeFromParent();
+  } else if (other is Shield) {
+    // ref.read(gameStateProvider.notifier).winpoint();
+    removeFromParent();
+  }
     
     super.onCollision(intersectionPoints, other);
   }

@@ -23,7 +23,7 @@ class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCall
 
   @override
   Future<void> onLoad() async {
-    add(CircleHitbox()..collisionType = CollisionType.active);
+     add(CircleHitbox()..collisionType = CollisionType.active);
     sprite = await gameRef.loadSprite('enemies/poop.png');
     velocity = (targetPosition - position).normalized() * speed;
   }

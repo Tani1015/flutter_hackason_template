@@ -33,6 +33,19 @@ class PlayGame extends ConsumerStatefulWidget {
 
 class _PlayGameState extends ConsumerState<PlayGame> {
 
+  Timer? _timer; 
+  ValueNotifier<int> _remainingTime = ValueNotifier<int>(60); // Valor inicial de 60 segundos
+
+  void startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_remainingTime.value > 0) {
+        _remainingTime.value--; // Actualiza el valor del temporizador
+      } else {
+        timer.cancel(); // Detiene el temporizador
+        showAlert(); // Muestra la alerta
+      }
+    });
+  }
 
   void showAlert() {
     showDialog(
@@ -57,8 +70,16 @@ class _PlayGameState extends ConsumerState<PlayGame> {
   @override
   void initState() {
    // final gameStateNotifier = ref.read(gameStateProvider.notifier);
-  /// startTimer();
+   startTimer();
     super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancela el temporizador cuando el widget se destruye
+    _remainingTime.dispose(); // Libera el ValueNotifier
+    super.dispose();
   }
 
   @override
@@ -91,24 +112,69 @@ class _PlayGameState extends ConsumerState<PlayGame> {
             //   onRightDown: ref.read(gameStateProvider.notifier).onRightTapDown,
             //   onRightUp: ref.read(gameStateProvider.notifier).onRightTapUp,
             // ),
-              Positioned(
-              top: 20,
-              left: 20,
-              child: Consumer(
-                builder: (context, ref, _) {
-                final currentScore = ref.watch(scoreProvider);
-                
-                  return Text(
-                    'Score: $currentScore user: ${widget.userName}' ,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  
-                
-              );
-  }))],
+Positioned(
+  top: 20,
+  left: 20,
+  child: Container(
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Consumer(
+      builder: (context, ref, _) {
+        final currentScore = ref.watch(scoreProvider);
+        return ValueListenableBuilder<int>(
+          valueListenable: _remainingTime,
+          builder: (context, time, child) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.star, color: Colors.white),
+                SizedBox(width: 8),
+                Text(
+                  'Score: $currentScore',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(width: 20),
+                Icon(Icons.person, color: Colors.white),
+                SizedBox(width: 8),
+                Text(
+                  'User: ${widget.userName}',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(width: 20),
+                Icon(Icons.timer, color: Colors.white),
+                SizedBox(width: 8),
+                Text(
+                  'Time: $time',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: time <= 5
+                        ? Colors.red
+                        : time <= 10
+                            ? Colors.orange
+                            : Colors.white,
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    ),
+  ),
+)
+  ],
         ));
   }
 }

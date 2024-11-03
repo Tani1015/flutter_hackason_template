@@ -111,7 +111,7 @@ class Shield extends PositionComponent
     add(
       PolygonHitbox(
         vertices
-      )..debugMode = true..collisionType = CollisionType.active,
+      )..collisionType = CollisionType.active,
     );
   }
 

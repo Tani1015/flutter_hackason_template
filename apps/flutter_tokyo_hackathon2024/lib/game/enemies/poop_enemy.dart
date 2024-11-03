@@ -5,6 +5,7 @@ import 'package:flame/game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flutter_tokyo_hackathon2024/game/components/shield.dart';
 import 'package:flutter_tokyo_hackathon2024/game/enemies/bird_enemy.dart';
+import 'package:flutter_tokyo_hackathon2024/game/player/neko.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state_notifier.dart';
 
 import '../neko_game.dart';
@@ -36,9 +37,20 @@ class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCall
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if(other is Shield){
-      removeFromParent();
+
+    switch (other) {
+      case Neko:
+      //  ref.read(gameStateProvider.notifier).loseLife();
+        removeFromParent();
+        break;
+//        break;
+      case Shield:
+      //ref.read(gameStateProvider.notifier).winPoint();
+        removeFromParent();
+        break;
+      //  break;
     }
+    
     super.onCollision(intersectionPoints, other);
   }
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/firebase_options.dart';
@@ -29,10 +31,47 @@ class PlayGame extends ConsumerStatefulWidget {
 }
 
 class _PlayGameState extends ConsumerState<PlayGame> {
+  Timer? _timer; 
+  int _remainingTime = 60; 
+
+
+  void startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_remainingTime > 0) {
+          _remainingTime--;
+        } else {
+          timer.cancel(); // Detiene el temporizador
+          showAlert(); // Muestra la alerta
+        }
+      });
+    });
+  }
+
+  void showAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("¡Tiempo terminado!"),
+          content: Text("El tiempo de juego ha finalizado."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el diálogo
+              },
+              child: Text("Aceptar"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     final gameStateNotifier = ref.read(gameStateProvider.notifier);
-
+    startTimer();
     super.initState();
   }
 
@@ -40,10 +79,7 @@ class _PlayGameState extends ConsumerState<PlayGame> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
-
-   
-     final currentScore = ref.watch(scoreProvider);
-  
+    final currentScore = ref.watch(scoreProvider);
     return  Scaffold(
         body: Stack(
           children: [
@@ -75,7 +111,7 @@ class _PlayGameState extends ConsumerState<PlayGame> {
                
      
                    Text(
-                    'Score: $currentScore user: ${widget.userName}' ,
+                    'Score: $currentScore user: ${widget.userName} time: $_remainingTime' ,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

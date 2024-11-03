@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_helper/converters/date_time_converter.dart';
+import 'package:firebase_helper/firebase/firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/firebase_options.dart';
 import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
 import 'package:flutter_tokyo_hackathon2024/presentation/pages/onboarding/onboarding_page.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/playing_state_notifier.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/score_notifier.dart';
+import 'package:helper/logger/logger.dart';
 import 'package:helper/presentation/app/navigator_handler.dart';
 import 'package:helper/presentation/app_wrapper.dart';
 import 'package:helper/presentation/widgets/lottie.dart';
@@ -17,6 +19,7 @@ import 'package:flame_riverpod/flame_riverpod.dart';
 
 import 'game/neko_game.dart';
 import 'game/widget/rotation_controls.dart';
+import 'models/game_score/game_score_model.dart';
 import 'riverpod/game_state/game_state_notifier.dart';
 import 'riverpod/playing_state.dart';
 
@@ -35,16 +38,43 @@ class _PlayGameState extends ConsumerState<PlayGame> {
 
   Timer? _timer; 
   ValueNotifier<int> _remainingTime = ValueNotifier<int>(20); // Valor inicial de 60 segundos
+  FirebaseFirestoreHelper get _firebaseHelper => FirebaseFirestoreHelper.instance;
 
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_remainingTime.value > 0) {
-        _remainingTime.value--; // Actualiza el valor del temporizador
+        _remainingTime.value--; 
       } else {
-        timer.cancel(); // Detiene el temporizador
-        showAlert(); // Muestra la alerta
+        timer.cancel(); 
+        _saveGameScore(score: ref.read(scoreProvider));
+        showAlert();
       }
     });
+  }
+
+  Future<void> _saveGameScore({required int score}) async {
+    final data = GameScoreModel(
+      userName: widget.userName,
+      score: score,
+    );
+
+    try {
+      await _firebaseHelper.set(
+        documentPath: GameScoreModel.documentPath(widget.userName),
+        data: data.toJson(),
+        setOptions: SetOptions(merge: true),
+      );
+    } on Exception catch (e) {
+      logger.warning(e);
+    }
+
+    if (context.mounted) {
+      _pop();
+    }
+  }
+
+    void _pop() {
+    Navigator.of(context).pop();
   }
 
   void showAlert() {
@@ -52,8 +82,8 @@ class _PlayGameState extends ConsumerState<PlayGame> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("¡Tiempo terminado!"),
-          content: Text("El tiempo de juego ha finalizado."),
+          title: Text("¡Time over!", style: TextStyle(color: Colors.black),),
+          content: Text("🐈🐈"),
           actions: [
             TextButton(
               onPressed: () {

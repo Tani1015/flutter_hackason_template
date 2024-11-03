@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_helper/converters/date_time_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/firebase_options.dart';
 import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
@@ -27,26 +28,11 @@ class PlayGame extends ConsumerStatefulWidget {
   const PlayGame({super.key, required this.userName});
 
   @override
-  ConsumerState<PlayGame> createState() => _PlayGameState();
+ _PlayGameState createState() => _PlayGameState();
 }
 
 class _PlayGameState extends ConsumerState<PlayGame> {
-  Timer? _timer; 
-  int _remainingTime = 60; 
 
-
-  void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_remainingTime > 0) {
-          _remainingTime--;
-        } else {
-          timer.cancel(); // Detiene el temporizador
-          showAlert(); // Muestra la alerta
-        }
-      });
-    });
-  }
 
   void showAlert() {
     showDialog(
@@ -58,7 +44,7 @@ class _PlayGameState extends ConsumerState<PlayGame> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Cierra el diálogo
+                Navigator.of(context).pop(); 
               },
               child: Text("Aceptar"),
             ),
@@ -70,22 +56,23 @@ class _PlayGameState extends ConsumerState<PlayGame> {
 
   @override
   void initState() {
-    final gameStateNotifier = ref.read(gameStateProvider.notifier);
-    startTimer();
+   // final gameStateNotifier = ref.read(gameStateProvider.notifier);
+  /// startTimer();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    
     final mediaQuery = MediaQuery.of(context);
     final screenWidth = mediaQuery.size.width;
-    final currentScore = ref.watch(scoreProvider);
+    //final currentScore = ref.watch(scoreProvider);
     return  Scaffold(
         body: Stack(
           children: [
             RiverpodAwareGameWidget(
               key: gameWidgetKey,
-              game: NekoGame(),
+              game:  NekoGame(),
               overlayBuilderMap: {
                 'LottieOverlay': (BuildContext context, _) {
                   return Center(
@@ -104,23 +91,24 @@ class _PlayGameState extends ConsumerState<PlayGame> {
             //   onRightDown: ref.read(gameStateProvider.notifier).onRightTapDown,
             //   onRightUp: ref.read(gameStateProvider.notifier).onRightTapUp,
             // ),
-             Positioned(
+              Positioned(
               top: 20,
               left: 20,
-              child: 
-               
-     
-                   Text(
-                    'Score: $currentScore user: ${widget.userName} time: $_remainingTime' ,
+              child: Consumer(
+                builder: (context, ref, _) {
+                final currentScore = ref.watch(scoreProvider);
+                
+                  return Text(
+                    'Score: $currentScore user: ${widget.userName}' ,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                  )
-              
-            ),
-          ],
+                  
+                
+              );
+  }))],
         ));
   }
 }

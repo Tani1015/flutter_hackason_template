@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tokyo_hackathon2024/presentation/pages/game_instruction/hover_instruction_card.dart';
 
 class GameInstructionPage extends StatelessWidget {
   const GameInstructionPage._();
@@ -7,74 +8,171 @@ class GameInstructionPage extends StatelessWidget {
 
   static Route<void> route() => MaterialPageRoute(
         builder: (_) => const GameInstructionPage._(),
-        settings: const RouteSettings(
-          name: _path,
-        ),
+        settings: const RouteSettings(name: _path),
       );
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final cardSize = (screenWidth - 60) / 2 * 0.8;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('ゲーム説明'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'ゲームのルール',
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Card(
-              child: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 24),
+              Container(
                 padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'ゲームの目的',
-                      style: theme.textTheme.titleMedium?.copyWith(
+                      'ゲームのストーリー',
+                      style: theme.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    const Text('寝ているネコをほっとするように守りましょう！'),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12),
                     Text(
-                      '操作方法',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      '眠っている猫を見るとホッとしますよね？'
+                      '眠っている猫をホッとさせたいですよね？'
+                      'それでは、多方面からランダムに飛んでくるさまざまな敵から、眠っている猫を守って下さい！'
+                      '敵は、空から落ちてくる鳥のフン、さらには石など、様々なものがあります。'
+                      'スライドやクリックを駆使して、猫を敵から守りましょう！',
+                      style: theme.textTheme.bodyMedium,
                     ),
-                    const SizedBox(height: 8),
-                    const Text('0. ネコがほっとしながら寝ています。'),
-                    const Text('1. 寝ているネコに向かって色々な障害物が飛んできます。'),
-                    const Text('2. 障害物は２種類あります。'),
-                    const Text('3. 障害物が有機物なら、クリック！無機物なら、スライドで壁を利用！'),
-                    const Text('4. ネコを守ることができたら、スコアが加算されます。'),
-                    const Text('5. 高いスコアを目指して、ランキングに入りましょう！'),
-                    const SizedBox(height: 16),
-                    Text(
-                      'スコアシステム',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text('ここにスコアシステムを記述します。'),
                   ],
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'キャラクター',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Center(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              HoverInstructionCard(
+                                assetPath: 'assets/json/cat.json',
+                                description: 'ほっとしている可愛いネコ。眠れるように守らないと…',
+                                size: cardSize,
+                              ),
+                              const SizedBox(width: 20),
+                              HoverInstructionCard(
+                                assetPath: 'assets/images/enemies/Bird.png',
+                                description: '空の悪魔の鳥！ここはトイレじゃない！',
+                                size: cardSize,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              HoverInstructionCard(
+                                assetPath: 'assets/images/enemies/Poop.png',
+                                description: '鳥のフン。空から落ちてきます。',
+                                size: cardSize,
+                              ),
+                              const SizedBox(width: 20),
+                              HoverInstructionCard(
+                                assetPath: 'assets/images/enemies/stone.png',
+                                description: '誰かが投げる石、気をつけよう！',
+                                size: cardSize,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '操作方法',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Image.asset(
+                        'assets/images/instruction/firewall.png',
+                        width: cardSize,
+                        height: cardSize,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Text(
+                      '右矢印キーと左矢印キーでHot壁を動かします。'
+                      '飛んでくる障害物からネコをHot壁で守ることができたら+1点です。'
+                      'もし、障害物がネコに当たったら-1点になります。'
+                      '制限時間内で点数を稼いでください！',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

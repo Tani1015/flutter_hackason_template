@@ -5,6 +5,7 @@
 ### Flutter / Dart
 
 Flutter は stable チャネルの最新バージョン、Dart はそれに付属したバージョンを用いる。
+ 
 fvm で Flutter のバージョンを管理すること(fvm のバージョンは 3.0系)
 
 - Flutter 3.24.4

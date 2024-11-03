@@ -9,6 +9,7 @@ import 'package:flutter_tokyo_hackathon2024/game/player/neko.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state_notifier.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/playing_state_notifier.dart';
+import 'package:flutter_tokyo_hackathon2024/riverpod/score_notifier.dart';
 
 import '../neko_game.dart';
 
@@ -41,12 +42,10 @@ class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCall
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
 
  if (other is Neko) {
-    ref.read(playingStateProvider.notifier).decrementScore(1);
-    // ref.read(gameStateProvider.notifier).loseLife();
+       ref.read(scoreProvider.notifier).decrement(1);
     removeFromParent();
   } else if (other is Shield) {
-    // ref.read(gameStateProvider.notifier).winpoint();
-    ref.read(playingStateProvider.notifier).incrementScore(1);
+        ref.read(scoreProvider.notifier).increment(1);
     removeFromParent();
   }
     

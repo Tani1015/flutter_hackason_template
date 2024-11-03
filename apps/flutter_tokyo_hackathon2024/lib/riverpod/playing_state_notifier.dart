@@ -35,6 +35,7 @@ class PlayingStateNotifier extends StateNotifier<PlayingState> {
     //if (state is PlayingStateNone) {
       final newValue = (_currentScore.value - value).clamp(0, double.infinity).toInt();
       _currentScore = ScoreEntity(newValue);
+      
    // }
   }
 

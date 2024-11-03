@@ -27,6 +27,12 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.4.13
+  flame: ^1.21.0
+  flame_rive: ^1.10.5
+  flutter_riverpod: ^2.0.0
+  flame_riverpod: ^5.4.5
+  equatable: ^2.0.5
+  flutter_animate: ^4.5.0
 
   flutter_gen_runner: ^5.8.0
 
@@ -37,6 +43,20 @@ flutter:
   uses-material-design: true
   assets:
     - assets/json/
+    - assets/images/flame/
+    - assets/images/flutter_flame/
+    - assets/images/snow/
+    - assets/images/sparkle/
+    - assets/images/orb/
+    - assets/images/heart/
+    - assets/images/trophy/
+    - assets/images/icons/
+    - assets/images/enemies/
+    - assets/images/
+    - assets/fonts/
+    - assets/audio/
+    - assets/audio/motivation/
+    - assets/rive/
     - assets/images/
     - assets/images/instruction/
     - assets/images/enemies/

@@ -18,6 +18,12 @@ dev_dependencies:
   intl: ^0.18.0
   melos: ^6.0.0
   pedantic_mono: ^1.29.0
+  flame: ^1.21.0
+  flame_rive: ^1.10.5
+  flutter_riverpod: ^2.0.0
+  flame_riverpod: ^5.4.5
+  equatable: ^2.0.5
+  flutter_animate: ^4.5.0
 
 flutter:
   uses-material-design: true

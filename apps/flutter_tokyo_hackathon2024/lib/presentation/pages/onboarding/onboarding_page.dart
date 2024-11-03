@@ -6,8 +6,11 @@ import 'package:flutter_tokyo_hackathon2024/presentation/pages/ranking/ranking_p
 import 'package:helper/extensions/context_extension.dart';
 import 'package:helper/res/constants.dart';
 
+import '../../../play_game.dart';
+
 class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({super.key});
+
+  const OnboardingPage({super.key,});
 
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
@@ -24,8 +27,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   void _push() {
     Navigator.of(context).push(
-      GameContentPage.route(
-        userName: _nameController.text,
+      MaterialPageRoute(
+        builder: (context) => PlayGame(userName: _nameController.text),
       ),
     );
   }

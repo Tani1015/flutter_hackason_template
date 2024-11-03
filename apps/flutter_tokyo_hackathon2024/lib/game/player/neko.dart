@@ -6,11 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame_riverpod/flame_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tokyo_hackathon2024/game/components/moving_component.dart';
-import 'package:flutter_tokyo_hackathon2024/generated/assets.gen.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state.dart';
-import 'package:helper/presentation/widgets/lottie.dart';
-import '../../riverpod/game_state/game_state_notifier.dart';
-import '../../riverpod/playing_state.dart';
 import '../../riverpod/playing_state_notifier.dart';
 import '../components/orb_type.dart';
 import '../components/shield.dart';
@@ -59,8 +55,6 @@ class Neko extends PositionComponent
 
   @override 
    void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-
-     print("neko esta");
     super.onCollision(intersectionPoints, other);
 
      if(other is MovingComponent){

@@ -4,9 +4,13 @@ import 'playing_state.dart';
 class PlayingStateNotifier extends StateNotifier<PlayingState> {
   PlayingStateNotifier() : super(const PlayingStateNone());
 
+  ScoreEntity _currentScore = const ScoreEntity(0);
   void setGuide() => state = const PlayingStateGuide();
 
-  void setPlaying() => state = const PlayingStatePlaying();
+  void setPlaying() {
+    _currentScore = const ScoreEntity(0);
+    state = const PlayingStatePlaying();
+  }
 
   void setPaused() => state = const PlayingStatePaused();
 
@@ -19,7 +23,27 @@ class PlayingStateNotifier extends StateNotifier<PlayingState> {
   }
 
   void reset() => state = const PlayingStateNone();
+
+  void incrementScore(int value) {
+    print(value);
+   // if (state is PlayingStateNone) {
+      _currentScore = ScoreEntity(_currentScore.value + value);
+   // }
+  }
+  void decrementScore(int value) {
+    print(value);
+    //if (state is PlayingStateNone) {
+      final newValue = (_currentScore.value - value).clamp(0, double.infinity).toInt();
+      _currentScore = ScoreEntity(newValue);
+   // }
+  }
+
+  // Obtener el puntaje actual
+  ScoreEntity get currentScore => _currentScore;
+
 }
+
+
 final playingStateProvider = StateNotifierProvider<PlayingStateNotifier, PlayingState>(
   (ref) => PlayingStateNotifier(),
 );

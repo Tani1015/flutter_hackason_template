@@ -7,16 +7,18 @@ import 'package:flutter_tokyo_hackathon2024/game/components/shield.dart';
 import 'package:flutter_tokyo_hackathon2024/game/enemies/bird_enemy.dart';
 import 'package:flutter_tokyo_hackathon2024/game/player/neko.dart';
 import 'package:flutter_tokyo_hackathon2024/riverpod/game_state/game_state_notifier.dart';
+import 'package:flame_riverpod/flame_riverpod.dart';
+import 'package:flutter_tokyo_hackathon2024/riverpod/playing_state_notifier.dart';
 
 import '../neko_game.dart';
 
-class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCallbacks{
+class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCallbacks, RiverpodComponentMixin{
   final double speed;
   final Vector2 targetPosition;
    late Vector2 velocity;
 
   PoopEnemy({required this.speed, Vector2? position, Vector2? size, required this.targetPosition})
-      : super(position: position, size: size ?? Vector2(20, 20));
+      : super(position: position, size: size ?? Vector2(22, 22));
 
   @override
   Future<void> onLoad() async {
@@ -39,10 +41,12 @@ class PoopEnemy extends SpriteComponent with HasGameRef<NekoGame>, CollisionCall
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
 
  if (other is Neko) {
+    ref.read(playingStateProvider.notifier).decrementScore(1);
     // ref.read(gameStateProvider.notifier).loseLife();
     removeFromParent();
   } else if (other is Shield) {
     // ref.read(gameStateProvider.notifier).winpoint();
+    ref.read(playingStateProvider.notifier).incrementScore(1);
     removeFromParent();
   }
     

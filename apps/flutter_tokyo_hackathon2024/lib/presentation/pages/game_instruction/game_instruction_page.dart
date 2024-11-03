@@ -100,7 +100,7 @@ class GameInstructionPage extends StatelessWidget {
                               ),
                               const SizedBox(width: 20),
                               HoverInstructionCard(
-                                assetPath: 'assets/images/enemies/Bird.png',
+                                assetPath: 'assets/images/enemies/bird.png',
                                 description: '空の悪魔の鳥！ここはトイレじゃない！',
                                 size: cardSize,
                               ),
@@ -111,7 +111,7 @@ class GameInstructionPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               HoverInstructionCard(
-                                assetPath: 'assets/images/enemies/Poop.png',
+                                assetPath: 'assets/images/enemies/poop.png',
                                 description: '鳥のフン。空から落ちてきます。',
                                 size: cardSize,
                               ),
